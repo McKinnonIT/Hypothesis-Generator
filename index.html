@@ -67,24 +67,24 @@
     <div id="step1" class="step-box visible-panel">
         <p class="instruction">What do consumers care about the most based on the surveys?</p>
         <div class="btn-grid">
-            <button onclick="handleStep1('low purchase prices', 'Price')"><˜ Cheap Prices</button>
+            <button onclick="handleStep1('low purchase prices', 'Price')"><√∑ Cheap Prices</button>
             <button onclick="handleStep1('ethical production and sustainable origins', 'Ethics')"><? Eco-Friendly & Fair Trade</button>
             <button onclick="handleStep1('recognisable global brand names', 'Brand')">P Famous Brand Names</button>
-            <button onclick="handleStep1('fast access to the latest clothing trends', 'Trend')"><√ Fast Fashion & Trends</button>
-            <button onclick="handleStep1('premium product durability and material quality', 'Quality')">=‡ High Quality & Durability</button>
-            <button onclick="handleStep1('locally sourced and independent items', 'Local')">=Õ Local & Independent Goods</button>
+            <button onclick="handleStep1('fast access to the latest clothing trends', 'Trend')"><√É Fast Fashion & Trends</button>
+            <button onclick="handleStep1('premium product durability and material quality', 'Quality')">=√† High Quality & Durability</button>
+            <button onclick="handleStep1('locally sourced and independent items', 'Local')">=√ç Local & Independent Goods</button>
         </div>
     </div>
 
     <div id="step2" class="step-box">
         <p class="instruction">Because consumers look for <span id="displayPriority" style="color:var(--primary)"></span>, what is your prediction for the products found?</p>
         <div class="btn-grid">
-            <button onclick="handleStep2('made in developing nations with lower manufacturing wages', 'LowCost')">=¢ Products will be: Made in developing nations with lower wages</button>
-            <button onclick="handleStep2('higher priced on store shelves to cover certified ethical manufacturing costs', 'HighCost')">=∞ Products will be: Higher priced to cover fair wages/eco-materials</button>
-            <button onclick="handleStep2('imported from a small cluster of major global manufacturing hubs', 'GlobalHub')"><‚ Products will be: From a few massive global manufacturing cities</button>
-            <button onclick="handleStep2('sold at ultra-low retail prices and made in developing countries', 'LowCost')">=… Products will be: Incredibly cheap and made in developing countries</button>
-            <button onclick="handleStep2('priced significantly higher and imported from countries with strict quality and labor standards', 'HighCost')">=é Products will be: More expensive and made in nations with high standards</button>
-            <button onclick="handleStep2('sourced locally within domestic networks or closer geographic regions', 'Domestic')"><Ê<˙ Products will be: Sourced within closer geographic regions</button>
+            <button onclick="handleStep2('made in developing nations with lower manufacturing wages', 'LowCost')">=¬¢ Products will be: Made in developing nations with lower wages</button>
+            <button onclick="handleStep2('higher priced on store shelves to cover certified ethical manufacturing costs', 'HighCost')">=¬∞ Products will be: Higher priced to cover fair wages/eco-materials</button>
+            <button onclick="handleStep2('imported from a small cluster of major global manufacturing hubs', 'GlobalHub')"><√¢ Products will be: From a few massive global manufacturing cities</button>
+            <button onclick="handleStep2('sold at ultra-low retail prices and made in developing countries', 'LowCost')">=√â Products will be: Incredibly cheap and made in developing countries</button>
+            <button onclick="handleStep2('priced significantly higher and imported from countries with strict quality and labor standards', 'HighCost')">=≈Ω Products will be: More expensive and made in nations with high standards</button>
+            <button onclick="handleStep2('sourced locally within domestic networks or closer geographic regions', 'Domestic')"><√¶<√∫ Products will be: Sourced within closer geographic regions</button>
         </div>
     </div>
 
@@ -95,11 +95,11 @@
             
             <div class="vars-grid">
                 <div class="var-card">
-                    <small><Ø Cause (Consumer Priority)</small>
+                    <small><¬Ø Cause (Consumer Priority)</small>
                     <span id="checkPriority"></span>
                 </div>
                 <div class="var-card">
-                    <small>ô Effect (Product Pattern)</small>
+                    <small>‚Ñ¢ Effect (Product Pattern)</small>
                     <span id="checkBehavior"></span>
                 </div>
             </div>
@@ -116,7 +116,7 @@
             <div id="hypothesisResult" class="hypothesis-box"></div>
             
             <div class="methodology-panel">
-                <div class="methodology-title">=˙ Your Fieldwork Action Plan:</div>
+                <div class="methodology-title">=√∫ Your Fieldwork Action Plan:</div>
                 <ol class="method-steps">
                     <li><strong>Customer Survey Activity:</strong> Collate and analyze questionnaire responses to establish exactly what factors consumers prioritize when buying products.</li>
                     <li><strong>Product Data Audit:</strong> Complete the retail scavenger hunt to find where different store items are physically manufactured.</li>
@@ -174,12 +174,12 @@
 
         if (logicallySound) {
             statusBox.className = "status-box green";
-            statusIcon.innerText = "=‚";
+            statusIcon.innerText = "=√¢";
             statusTitle.innerText = "Logical Connection! (Valid Match)";
             statusText.innerText = "Your prediction links up safely. This data pattern will be clear to prove or disprove using your flow map and scavenger hunt notes.";
         } else {
             statusBox.className = "status-box orange";
-            statusIcon.innerText = "=·";
+            statusIcon.innerText = "=√°";
             statusTitle.innerText = "Mismatched Connection! (Check Reasoning)";
             statusText.innerText = "These ideas belong to conflicting categories (e.g. Ethical/Premium expectations usually link to higher price tags and strict labor zones, not low wages or cheap retail items). Double-check your geography reasoning!";
         }
