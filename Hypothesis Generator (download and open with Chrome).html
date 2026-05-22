@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypothesis Helper: Product Scavenger Hunt</title>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #f8f9fa;
+            --accent: #2e7d32;
+            --accent-bg: #e8f5e9;
+            --text: #202124;
+            --border: #dadce0;
+            --warning: #c62828;
+            --amber: #ef6c00;
+            --amber-bg: #fff3e0;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--text); max-width: 750px; margin: 20px auto; padding: 20px; background-color: #f0f2f5; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; text-align: center; }
+        
+        .step-box { display: none; }
+        .step-box.visible-panel { display: block !important; }
+        
+        .instruction { font-size: 18px; font-weight: 600; margin-bottom: 15px; color: #444; }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        button { 
+            background: var(--secondary); border: 1px solid var(--border); padding: 18px; 
+            border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 500;
+            transition: all 0.2s; text-align: left; line-height: 1.4;
+            width: 100%; color: var(--text);
+        }
+        button:hover { background: #e8f0fe; border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+        
+        .result-card { background: #fff; padding: 10px; border-radius: 12px; margin-top: 10px; }
+        .hypothesis-box { background: #202124; color: #8ab4f8; padding: 20px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 16px; margin: 15px 0; border-left: 5px solid var(--primary); line-height: 1.5; }
+        
+        .status-box { padding: 20px; border-radius: 8px; margin: 15px 0; font-size: 15px; display: flex; gap: 15px; align-items: start; }
+        .status-box.green { background-color: var(--accent-bg); border-left: 6px solid var(--accent); color: #1b5e20; }
+        .status-box.orange { background-color: var(--amber-bg); border-left: 6px solid var(--amber); color: #b65a00; }
+        .status-icon { font-size: 24px; line-height: 1; }
+        
+        .vars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .var-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; }
+        .var-card small { text-transform: uppercase; font-weight: bold; font-size: 11px; color: #64748b; display: block; margin-bottom: 4px; }
+        .var-card span { font-weight: 600; color: #0f172a; font-size: 15px; display: block; line-height: 1.4; }
+
+        .methodology-panel { background: #f1f5f9; border-radius: 8px; padding: 20px; margin-top: 20px; }
+        .methodology-title { font-weight: 700; font-size: 15px; color: #334155; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .method-steps { margin: 0; padding-left: 20px; font-size: 14px; color: #475569; }
+        .method-steps li { margin-bottom: 8px; }
+
+        .action-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .action-btn { border: none; padding: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; text-align: center; font-size: 15px; transition: background 0.2s; }
+        .restart-btn { background: var(--warning); color: white; }
+        .restart-btn:hover { background: #b71c1c; }
+        .confirm-btn { background: var(--primary); color: white; }
+        .confirm-btn:hover { background: #155cb4; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="mainTitle">Step 1: Choose Consumer Priority</h1>
+    
+    <div id="step1" class="step-box visible-panel">
+        <p class="instruction">What do consumers care about the most based on the surveys?</p>
+        <div class="btn-grid">
+            <button onclick="handleStep1('low purchase prices', 'Price')"><÷ Cheap Prices</button>
+            <button onclick="handleStep1('ethical production and sustainable origins', 'Ethics')"><? Eco-Friendly & Fair Trade</button>
+            <button onclick="handleStep1('recognisable global brand names', 'Brand')">P Famous Brand Names</button>
+            <button onclick="handleStep1('fast access to the latest clothing trends', 'Trend')"><Ã Fast Fashion & Trends</button>
+            <button onclick="handleStep1('premium product durability and material quality', 'Quality')">=à High Quality & Durability</button>
+            <button onclick="handleStep1('locally sourced and independent items', 'Local')">=Í Local & Independent Goods</button>
+        </div>
+    </div>
+
+    <div id="step2" class="step-box">
+        <p class="instruction">Because consumers look for <span id="displayPriority" style="color:var(--primary)"></span>, what is your prediction for the products found?</p>
+        <div class="btn-grid">
+            <button onclick="handleStep2('made in developing nations with lower manufacturing wages', 'LowCost')">=¢ Products will be: Made in developing nations with lower wages</button>
+            <button onclick="handleStep2('higher priced on store shelves to cover certified ethical manufacturing costs', 'HighCost')">=° Products will be: Higher priced to cover fair wages/eco-materials</button>
+            <button onclick="handleStep2('imported from a small cluster of major global manufacturing hubs', 'GlobalHub')"><â Products will be: From a few massive global manufacturing cities</button>
+            <button onclick="handleStep2('sold at ultra-low retail prices and made in developing countries', 'LowCost')">=É Products will be: Incredibly cheap and made in developing countries</button>
+            <button onclick="handleStep2('priced significantly higher and imported from countries with strict quality and labor standards', 'HighCost')">=Ž Products will be: More expensive and made in nations with high standards</button>
+            <button onclick="handleStep2('sourced locally within domestic networks or closer geographic regions', 'Domestic')"><æ<ú Products will be: Sourced within closer geographic regions</button>
+        </div>
+    </div>
+
+    <div id="step3" class="step-box">
+        <div class="result-card">
+            <p class="instruction" style="margin-bottom: 5px;">=@ Check Your Scavenger Hunt Prediction:</p>
+            <p style="font-size: 14px; color: #5f6368; margin-bottom: 15px;">Review the logical match below before writing it into your report.</p>
+            
+            <div class="vars-grid">
+                <div class="var-card">
+                    <small><¯ Cause (Consumer Priority)</small>
+                    <span id="checkPriority"></span>
+                </div>
+                <div class="var-card">
+                    <small>™ Effect (Product Pattern)</small>
+                    <span id="checkBehavior"></span>
+                </div>
+            </div>
+
+            <div id="feedbackBox" class="status-box">
+                <div id="feedbackIcon" class="status-icon"></div>
+                <div>
+                    <strong id="feedbackTitle"></strong><br>
+                    <span id="feedbackText"></span>
+                </div>
+            </div>
+
+            <p style="font-weight: 600; margin-top: 25px; font-size: 15px; margin-bottom: 5px;">Your Final "If/Then" Statement Preview:</p>
+            <div id="hypothesisResult" class="hypothesis-box"></div>
+            
+            <div class="methodology-panel">
+                <div class="methodology-title">=ú Your Fieldwork Action Plan:</div>
+                <ol class="method-steps">
+                    <li><strong>Customer Survey Activity:</strong> Collate and analyze questionnaire responses to establish exactly what factors consumers prioritize when buying products.</li>
+                    <li><strong>Product Data Audit:</strong> Complete the retail scavenger hunt to find where different store items are physically manufactured.</li>
+                    <li><strong>Map the Interconnections:</strong> Construct a global flow map linking the retail store back to the factory source countries.</li>
+                    <li><strong>Analyze the Correlation:</strong> Evaluate if consumer priorities (e.g., price or ethics) systematically determine where these goods are made.</li>
+                </ol>
+            </div>
+            
+            <div class="action-container">
+                <button class="action-btn restart-btn" onclick="restart()">L No, Start Over</button>
+                <button class="action-btn confirm-btn" onclick="alert('Perfect! Copy this exact sentence into your presentation planning doc.')"> Yes, Looks Awesome</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let selectedPriority = '';
+    let selectedPriorityTag = '';
+
+    function handleStep1(value, tag) {
+        selectedPriority = value;
+        selectedPriorityTag = tag;
+        
+        document.getElementById('displayPriority').innerText = selectedPriority;
+        document.getElementById('mainTitle').innerText = "Step 2: Predict Product Pattern";
+        
+        document.getElementById('step1').classList.remove('visible-panel');
+        document.getElementById('step2').classList.add('visible-panel');
+    }
+
+    function handleStep2(behavior, behaviorTag) {
+        document.getElementById('mainTitle').innerText = "Step 3: Verification & Review";
+        
+        const completeSentence = `If consumers prioritise ${selectedPriority} when making purchasing choices, then products will be ${behavior}.`;
+        
+        document.getElementById('hypothesisResult').innerText = completeSentence;
+        document.getElementById('checkPriority').innerText = `Consumers prioritize ${selectedPriority}`;
+        document.getElementById('checkBehavior').innerText = `Products will be ${behavior}`;
+
+        const statusBox = document.getElementById('feedbackBox');
+        const statusIcon = document.getElementById('feedbackIcon');
+        const statusTitle = document.getElementById('feedbackTitle');
+        const statusText = document.getElementById('feedbackText');
+
+        let logicallySound = false;
+
+        if (selectedPriorityTag === 'Price' && behaviorTag === 'LowCost') logicallySound = true;
+        if (selectedPriorityTag === 'Ethics' && behaviorTag === 'HighCost') logicallySound = true;
+        if (selectedPriorityTag === 'Quality' && behaviorTag === 'HighCost') logicallySound = true;
+        if (selectedPriorityTag === 'Brand' && behaviorTag === 'GlobalHub') logicallySound = true;
+        if (selectedPriorityTag === 'Trend' && behaviorTag === 'LowCost') logicallySound = true;
+        if (selectedPriorityTag === 'Trend' && behaviorTag === 'GlobalHub') logicallySound = true;
+        if (selectedPriorityTag === 'Local' && behaviorTag === 'Domestic') logicallySound = true;
+
+        if (logicallySound) {
+            statusBox.className = "status-box green";
+            statusIcon.innerText = "=â";
+            statusTitle.innerText = "Logical Connection! (Valid Match)";
+            statusText.innerText = "Your prediction links up safely. This data pattern will be clear to prove or disprove using your flow map and scavenger hunt notes.";
+        } else {
+            statusBox.className = "status-box orange";
+            statusIcon.innerText = "=á";
+            statusTitle.innerText = "Mismatched Connection! (Check Reasoning)";
+            statusText.innerText = "These ideas belong to conflicting categories (e.g. Ethical/Premium expectations usually link to higher price tags and strict labor zones, not low wages or cheap retail items). Double-check your geography reasoning!";
+        }
+        
+        document.getElementById('step2').classList.remove('visible-panel');
+        document.getElementById('step3').classList.add('visible-panel');
+    }
+
+    function restart() {
+        selectedPriority = '';
+        selectedPriorityTag = '';
+        document.getElementById('mainTitle').innerText = "Step 1: Choose Consumer Priority";
+        document.getElementById('step3').classList.remove('visible-panel');
+        document.getElementById('step2').classList.remove('visible-panel');
+        document.getElementById('step1').classList.add('visible-panel');
+    }
+</script>
+
+</body>
+</html>
